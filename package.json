@@ -17,8 +17,5 @@
   "bugs": {
     "url": "https://github.com/sharatj28/neramces/issues"
   },
-  "homepage": "https://github.com/sharatj28/neramces#readme",
-  "dependencies": {
-    "@vercel/analytics": "^2.0.1"
-  }
+  "homepage": "https://github.com/sharatj28/neramces#readme"
 }
