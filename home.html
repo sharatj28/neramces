@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="NERAM Civil Environmental Solution Pvt. Ltd. — Water Resource & Agriculture Solutions. Expert consulting in Hydraulic Modeling, Irrigation Management, Precision Agriculture, and GIS.">
+<title>NERAM Civil Environmental Solution Pvt. Ltd.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Nunito:wght@300;400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --soil:      #3b2a1a;
+  --forest:    #2d6a4f;
+  --leaf:      #52b788;
+  --sprout:    #95d5b2;
+  --sky:       #2196a0;
+  --sky-lt:    #e0f4f8;
+  --amber:     #e07b2a;
+  --amber-lt:  #fff3e0;
+  --cream:     #faf8f3;
+  --paper:     #ffffff;
+  --sand:      #f0ebe1;
+  --pebble:    #ddd5c8;
+  --text-dark: #1e2a1e;
+  --text-mid:  #4a5e4a;
+  --text-lt:   #7a8f7a;
+  --font-head: 'Playfair Display', Georgia, serif;
+  --font-body: 'Nunito', sans-serif;
+  --font-alt:  'Lato', sans-serif;
+  --radius:    8px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 2px 12px rgba(61,90,50,.08);
+  --shadow-md: 0 6px 28px rgba(61,90,50,.12);
+  --shadow-lg: 0 16px 56px rgba(61,90,50,.16);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--cream);color:var(--text-dark);overflow-x:hidden;line-height:1.7}
+
+.container{max-width:1180px;margin:0 auto;padding:0 28px}
+.section{padding:96px 0}
+.section--alt{background:var(--sand)}
+
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-alt);font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--leaf);margin-bottom:14px}
+.eyebrow::before{content:'';width:28px;height:2px;background:var(--leaf);border-radius:2px}
+
+h1,h2,h3{font-family:var(--font-head);line-height:1.15;color:var(--text-dark)}
+.section-title{font-size:clamp(32px,4vw,52px);margin-bottom:16px}
+.section-sub{font-size:16px;color:var(--text-lt);max-width:560px;line-height:1.75}
+
+.btn{display:inline-flex;align-items:center;gap:9px;padding:14px 30px;border-radius:50px;font-family:var(--font-alt);font-size:13px;font-weight:700;letter-spacing:.06em;cursor:pointer;transition:all .25s ease;text-decoration:none;border:none;white-space:nowrap}
+.btn-green{background:var(--forest);color:#fff;box-shadow:0 4px 18px rgba(45,106,79,.3)}
+.btn-green:hover{background:#235c41;transform:translateY(-2px);box-shadow:0 8px 28px rgba(45,106,79,.35)}
+.btn-amber{background:var(--amber);color:#fff;box-shadow:0 4px 18px rgba(224,123,42,.3)}
+.btn-amber:hover{background:#c46820;transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--forest);border:2px solid var(--forest)}
+.btn-ghost:hover{background:var(--forest);color:#fff}
+.btn-ghost-w{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.5)}
+.btn-ghost-w:hover{background:rgba(255,255,255,.15);border-color:#fff}
+.btn svg{width:16px;height:16px;flex-shrink:0}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(250,248,243,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--pebble);transition:box-shadow .3s}
+nav.scrolled{box-shadow:var(--shadow-md)}
+.nav-inner{max-width:1180px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:70px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-img{width:36px;height:36px;border-radius:8px;object-fit:contain;box-shadow:0 2px 8px rgba(45,106,79,.2)}
+.logo-mark{width:36px;height:36px;background:linear-gradient(135deg,var(--forest),var(--leaf));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 4px 12px rgba(45,106,79,.25)}
+.logo-text{display:flex;flex-direction:column;line-height:1}
+.logo-name{font-family:var(--font-head);font-size:20px;font-weight:700;color:var(--forest);letter-spacing:.04em}
+.logo-tag{font-family:var(--font-alt);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-lt);margin-top:2px}
+.nav-links{display:flex;align-items:center;gap:4px;list-style:none}
+.nav-links a{padding:8px 16px;font-family:var(--font-alt);font-size:13px;font-weight:600;color:var(--text-mid);text-decoration:none;border-radius:50px;transition:all .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--forest);background:rgba(45,106,79,.08)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text-mid);border-radius:2px;transition:all .3s}
+.mobile-menu{display:none;position:fixed;top:70px;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--pebble);padding:16px 28px 28px;z-index:999;flex-direction:column;gap:2px;box-shadow:var(--shadow-md)}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:var(--font-alt);font-size:15px;font-weight:600;color:var(--text-mid);text-decoration:none;padding:13px 0;border-bottom:1px solid var(--sand);transition:color .2s}
+.mobile-menu a:hover{color:var(--forest)}
+.mobile-menu .btn{margin-top:16px;justify-content:center}
+
+/* HERO */
+.hero{min-height:100vh;padding-top:70px;display:flex;align-items:center;position:relative;overflow:hidden;background:var(--cream)}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.18;pointer-events:none}
+.blob-1{width:600px;height:500px;background:var(--leaf);top:-100px;right:-150px}
+.blob-2{width:400px;height:400px;background:var(--sky);bottom:0;left:-100px}
+.blob-3{width:300px;height:300px;background:var(--amber);top:50%;left:40%}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;width:100%;position:relative;z-index:1;padding:64px 0}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--sand);border:1px solid var(--pebble);border-radius:50px;padding:6px 16px 6px 8px;font-family:var(--font-alt);font-size:12px;font-weight:600;color:var(--text-mid);margin-bottom:24px}
+.badge-dot{width:8px;height:8px;background:var(--leaf);border-radius:50%;animation:breathe 2s infinite}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.3);opacity:.7}}
+.hero h1{font-size:clamp(42px,5.5vw,76px);color:var(--soil);margin-bottom:20px;animation:riseUp .9s ease both}
+.hero h1 em{font-style:normal;color:var(--forest);position:relative}
+.hero h1 em::after{content:'';position:absolute;bottom:2px;left:0;right:0;height:4px;background:var(--sprout);border-radius:2px;opacity:.5}
+.hero-desc{font-size:17px;color:var(--text-mid);max-width:460px;margin-bottom:36px;line-height:1.8;animation:riseUp .9s .15s ease both}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;animation:riseUp .9s .25s ease both;margin-bottom:40px}
+.hero-trust{display:flex;align-items:center;gap:16px;flex-wrap:wrap;animation:riseUp .9s .35s ease both}
+.trust-item{display:flex;align-items:center;gap:8px;font-family:var(--font-alt);font-size:12px;font-weight:600;color:var(--text-lt)}
+.trust-item::before{content:'✓';width:20px;height:20px;background:var(--sprout);color:var(--forest);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.hero-visual{position:relative;animation:riseUp .9s .2s ease both}
+.hero-img-frame{position:relative;border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:4/3;box-shadow:var(--shadow-lg)}
+.field-art{position:absolute;inset:0;background:linear-gradient(180deg,#87ceeb 0%,#b8e4f0 22%,#4a7c59 22%,#5a9268 38%,#3d6b47 38%,#4a7c59 54%,#2d5a3d 54%,#6b8f5e 68%,#8fbc6e 68%,#a8cc88 84%,#c4dba8 100%)}
+.field-art::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0%,transparent 8%,rgba(255,255,255,.05) 8%,rgba(255,255,255,.05) 9%),repeating-linear-gradient(0deg,transparent 0%,transparent 12%,rgba(0,0,0,.03) 12%,rgba(0,0,0,.03) 13%)}
+.float-card{position:absolute;background:var(--paper);border-radius:var(--radius);padding:14px 18px;box-shadow:var(--shadow-md);z-index:2}
+.float-card--top{top:20px;left:-20px;border-left:3px solid var(--leaf)}
+.float-card--bot{bottom:24px;right:-20px;border-left:3px solid var(--amber)}
+.float-num{font-family:var(--font-head);font-size:26px;color:var(--forest);line-height:1}
+.float-label{font-family:var(--font-alt);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-lt);margin-top:2px}
+@keyframes riseUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+/* SERVICE STRIP */
+.svc-strip{background:var(--forest)}
+.svc-strip-inner{display:grid;grid-template-columns:repeat(5,1fr);max-width:1180px;margin:0 auto}
+.strip-item{padding:28px 16px;text-align:center;border-right:1px solid rgba(255,255,255,.1);cursor:pointer;transition:background .25s;text-decoration:none;display:block}
+.strip-item:last-child{border-right:none}
+.strip-item:hover{background:rgba(255,255,255,.09)}
+.strip-icon{font-size:26px;display:block;margin-bottom:8px}
+.strip-label{font-family:var(--font-alt);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.8);line-height:1.4}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-img-main{width:100%;aspect-ratio:5/4;background:linear-gradient(145deg,var(--sprout),var(--leaf),var(--forest));border-radius:var(--radius-lg);box-shadow:var(--shadow-md);display:flex;align-items:center;justify-content:center;font-size:80px;position:relative;overflow:hidden}
+.about-img-main::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(255,255,255,.04) 20px,rgba(255,255,255,.04) 21px)}
+.accent-box{position:absolute;bottom:-24px;right:-24px;background:var(--amber);border-radius:var(--radius);padding:24px 28px;box-shadow:var(--shadow-md);color:#fff}
+.accent-num{font-family:var(--font-head);font-size:36px;line-height:1}
+.accent-lbl{font-family:var(--font-alt);font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.85;margin-top:2px}
+.objectives{margin-top:28px;list-style:none}
+.objectives li{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--sand);font-size:15px;color:var(--text-mid);line-height:1.65}
+.objectives li:last-child{border-bottom:none}
+.obj-icon{width:30px;height:30px;background:var(--sand);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;margin-top:2px}
+
+/* STATS */
+.stats-band{background:var(--soil);padding:56px 0}
+.stats-inner{display:grid;grid-template-columns:repeat(4,1fr);text-align:center}
+.stat-block{padding:20px 24px;border-right:1px solid rgba(255,255,255,.1)}
+.stat-block:last-child{border-right:none}
+.stat-block .big{font-family:var(--font-head);font-size:52px;color:var(--sprout);line-height:1;margin-bottom:6px}
+.stat-block .lbl{font-family:var(--font-alt);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+
+/* SERVICES */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+.svc-card{background:var(--paper);border-radius:var(--radius-lg);padding:36px 28px;box-shadow:var(--shadow-sm);border:1px solid var(--sand);transition:all .3s;position:relative;overflow:hidden}
+.svc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--forest);transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+.svc-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-6px);border-color:var(--pebble)}
+.svc-card:hover::before{transform:scaleX(1)}
+.svc-card:nth-child(2)::before{background:var(--sky)}
+.svc-card:nth-child(3)::before{background:var(--amber)}
+.svc-card:nth-child(4)::before{background:var(--leaf)}
+.svc-card:nth-child(5)::before{background:#7b5ea7}
+.svc-icon-wrap{width:60px;height:60px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:20px}
+.ig{background:rgba(82,183,136,.12)}.ib{background:rgba(33,150,160,.12)}.ia{background:rgba(224,123,42,.12)}.il{background:rgba(149,213,178,.2)}.ip{background:rgba(123,94,167,.1)}
+.svc-title{font-family:var(--font-head);font-size:22px;color:var(--soil);margin-bottom:12px;line-height:1.2}
+.svc-desc{font-size:14px;color:var(--text-lt);line-height:1.75;margin-bottom:20px}
+.svc-tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag-pill{font-family:var(--font-alt);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:50px;background:var(--sand);color:var(--text-mid);border:1px solid var(--pebble)}
+.svc-cta{background:linear-gradient(135deg,var(--forest) 0%,#1a4a33 100%);border:none}
+.svc-cta::before{background:var(--amber)}
+.svc-cta h3{font-family:var(--font-head);font-size:28px;color:#fff;margin-bottom:12px}
+.svc-cta p{font-size:14px;color:rgba(255,255,255,.75);margin-bottom:24px}
+
+/* SECTOR */
+.sector-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
+.feat-card{background:var(--paper);border:1px solid var(--pebble);border-radius:var(--radius);padding:20px;transition:all .25s}
+.feat-card:hover{border-color:var(--leaf);box-shadow:var(--shadow-sm)}
+.feat-card .icon{font-size:24px;margin-bottom:10px}
+.feat-card h4{font-family:var(--font-alt);font-size:13px;font-weight:700;color:var(--text-dark);margin-bottom:4px}
+.feat-card p{font-size:12px;color:var(--text-lt);line-height:1.6}
+.sector-vis{background:linear-gradient(160deg,var(--sky-lt),#d0eeee);border-radius:var(--radius-lg);padding:36px;box-shadow:var(--shadow-md)}
+.sector-vis h3{font-family:var(--font-alt);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sky);margin-bottom:24px}
+.ts-row{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.ts-label{font-family:var(--font-alt);font-size:13px;font-weight:600;color:var(--text-dark);width:160px;flex-shrink:0}
+.ts-bg{flex:1;height:8px;background:rgba(255,255,255,.6);border-radius:4px;overflow:hidden}
+.ts-fill{height:100%;background:linear-gradient(90deg,var(--forest),var(--leaf));border-radius:4px;animation:growBar 1.4s ease both;animation-delay:var(--d,0s)}
+@keyframes growBar{from{width:0}}
+.ts-pct{font-family:var(--font-alt);font-size:12px;font-weight:700;color:var(--sky);width:36px;text-align:right}
+.chip-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;padding-top:24px;border-top:1px solid rgba(255,255,255,.5)}
+.pa-chip{font-family:var(--font-alt);font-size:11px;font-weight:700;padding:6px 14px;border-radius:50px;background:rgba(45,106,79,.12);color:var(--forest);border:1px solid rgba(45,106,79,.2)}
+
+/* CFD */
+.cfd-section{background:var(--soil);padding:80px 0}
+.cfd-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.cfd-content h2{color:#fff;margin-bottom:16px}
+.cfd-content p{color:rgba(255,255,255,.65);font-size:15px;line-height:1.8;margin-bottom:28px}
+.cfd-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cfd-list li{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.75);background:rgba(255,255,255,.05);padding:10px 14px;border-radius:var(--radius);border:1px solid rgba(255,255,255,.08)}
+.cfd-list li::before{content:'▸';color:var(--sprout);font-size:12px;flex-shrink:0}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:5fr 7fr;gap:64px}
+.contact-info h2{margin-bottom:16px}
+.contact-info .intro{font-size:15px;color:var(--text-lt);margin-bottom:40px;line-height:1.8}
+.cd{display:flex;align-items:flex-start;gap:16px;padding:18px 0;border-bottom:1px solid var(--sand)}
+.cd:last-of-type{border-bottom:none}
+.cd-icon{width:44px;height:44px;background:var(--sand);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.cd-label{font-family:var(--font-alt);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-lt);margin-bottom:4px}
+.cd-val{font-size:14px;color:var(--text-dark);font-weight:500}
+.cd-val a{color:var(--forest);text-decoration:none}
+.cd-val a:hover{text-decoration:underline}
+.contact-form-box{background:var(--paper);border:1px solid var(--pebble);border-radius:var(--radius-lg);padding:40px;box-shadow:var(--shadow-md)}
+.form-title{font-family:var(--font-head);font-size:28px;color:var(--soil);margin-bottom:28px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.form-group{margin-bottom:20px}
+.form-label{display:block;font-family:var(--font-alt);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-mid);margin-bottom:8px}
+.form-input,.form-select,.form-textarea{width:100%;background:var(--cream);border:1.5px solid var(--pebble);border-radius:var(--radius);padding:13px 16px;font-family:var(--font-body);font-size:14px;color:var(--text-dark);outline:none;transition:border-color .2s,box-shadow .2s;appearance:none}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--forest);box-shadow:0 0 0 3px rgba(45,106,79,.1);background:var(--paper)}
+.form-textarea{min-height:110px;resize:vertical}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--pebble)}
+
+/* FOOTER */
+footer{background:var(--text-dark);padding:64px 0 28px}
+.footer-grid{display:grid;grid-template-columns:2.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand .logo-name{color:var(--sprout)}
+.footer-brand .logo-tag{color:rgba(255,255,255,.4)}
+.footer-brand p{font-size:13px;color:rgba(255,255,255,.45);margin-top:16px;max-width:260px;line-height:1.75}
+.footer-col h5{font-family:var(--font-alt);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sprout);margin-bottom:18px}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:11px}
+.footer-col a{font-size:13px;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s}
+.footer-col a:hover{color:rgba(255,255,255,.85)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-family:var(--font-alt);font-size:12px;color:rgba(255,255,255,.3)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .75s ease,transform .75s ease}
+.reveal.up{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .hero-inner{grid-template-columns:1fr;text-align:center;gap:48px}
+  .hero-desc{margin:0 auto 36px}
+  .hero-actions{justify-content:center}
+  .hero-trust{justify-content:center}
+  .float-card--top{left:0}
+  .float-card--bot{right:0}
+  .about-grid,.sector-grid,.cfd-inner,.contact-grid{grid-template-columns:1fr}
+  .svc-grid{grid-template-columns:repeat(2,1fr)}
+  .stats-inner{grid-template-columns:repeat(2,1fr)}
+  .stat-block{border-right:none;border-bottom:1px solid rgba(255,255,255,.1)}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .svc-strip-inner{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:768px){
+  .nav-links,nav>.nav-inner>.btn{display:none}
+  .hamburger{display:flex}
+  .svc-grid,.cfd-list,.form-row,.footer-grid{grid-template-columns:1fr}
+  .feat-grid{grid-template-columns:1fr}
+  .hero-actions{flex-direction:column;align-items:center}
+  .svc-strip-inner{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  .section{padding:64px 0}
+  .stats-inner{grid-template-columns:1fr}
+  .svc-strip-inner{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#home" class="logo">
+      <img src="C:\Users\Praveen\Desktop\NERAM\FINAL LOGO25 JULY2021.png" alt="NERAM logo" class="logo-img" />
+      <div class="logo-text">
+        <span class="logo-name">NERAM</span>
+        <span class="logo-tag">Civil Environmental Solution</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#home" class="active">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#sector">Sector</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="btn btn-green" style="margin-left:16px">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      Get in Touch
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home"     onclick="closeMobile()">Home</a>
+  <a href="#about"    onclick="closeMobile()">About</a>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#sector"   onclick="closeMobile()">Sector</a>
+  <a href="#contact"  onclick="closeMobile()">Contact</a>
+  <a href="#contact" class="btn btn-green" onclick="closeMobile()">Get in Touch</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge"><span class="badge-dot"></span>Water Resource &amp; Agriculture Consultancy</div>
+        <h1>Engineering<br>Sustainable<br><em>Water Solutions</em></h1>
+        <p class="hero-desc">NERAM Civil Environmental Solution provides expert consulting in Hydraulic Modeling, Irrigation Management, Precision Agriculture, GIS &amp; Remote Sensing, and AI-powered civil engineering — serving government bodies, engineers, and farmers across India.</p>
+        <div class="hero-actions">
+          <a href="#services" class="btn btn-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Explore Our Services
+          </a>
+          <a href="#contact" class="btn btn-ghost">Request a Quote</a>
+        </div>
+        <div class="hero-trust">
+          <div class="trust-item">AI-Powered</div>
+          <div class="trust-item">GIS &amp; Remote Sensing</div>
+          <div class="trust-item">Nashik, Maharashtra</div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="float-card float-card--top">
+          <div class="float-num">98.4%</div>
+          <div class="float-label">Survey Accuracy</div>
+        </div>
+        <div class="hero-img-frame">
+          <div class="field-art"></div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:80px;z-index:1">🛰️</div>
+        </div>
+        <div class="float-card float-card--bot">
+          <div class="float-num" style="color:var(--amber)">5+</div>
+          <div class="float-label">Service Domains</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE STRIP -->
+<div class="svc-strip">
+  <div class="svc-strip-inner">
+    <a href="#services" class="strip-item"><span class="strip-icon">🗺️</span><span class="strip-label">Project Mapping</span></a>
+    <a href="#services" class="strip-item"><span class="strip-icon">🌊</span><span class="strip-label">Hydraulic Modeling</span></a>
+    <a href="#services" class="strip-item"><span class="strip-icon">💧</span><span class="strip-label">Irrigation Mgmt.</span></a>
+    <a href="#services" class="strip-item"><span class="strip-icon">🌾</span><span class="strip-label">Precision Agriculture</span></a>
+    <a href="#services" class="strip-item"><span class="strip-icon">⚙️</span><span class="strip-label">Numerical Simulation</span></a>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div style="position:relative" class="reveal">
+        <div class="about-img-main"><span style="position:relative;z-index:1">🌍</span></div>
+        <div class="accent-box">
+          <div class="accent-num">5+</div>
+          <div class="accent-lbl">Years of Expertise</div>
+        </div>
+      </div>
+      <div class="reveal" style="transition-delay:.15s">
+        <div class="eyebrow">About NERAM</div>
+        <h2 class="section-title">Your Trusted Partner in Civil &amp; Environmental Solutions</h2>
+        <p style="font-size:15px;color:var(--text-lt);line-height:1.8;margin-bottom:12px">NERAM Civil Environmental Solution Pvt. Ltd. was established to offer a wide range of consulting services with the necessary tools and expertise — helping clients across Hydraulics, Hydrology, Irrigation, AI, GIS &amp; Remote Sensing, Transportation, Climate Change, and Water &amp; Wastewater Infrastructure.</p>
+        <p style="font-size:15px;color:var(--text-lt);line-height:1.8;margin-bottom:24px">We partner with clients from start to finish, focusing on their needs while producing new ideas, developing effective strategies, and designing high-quality, scalable solutions.</p>
+        <ul class="objectives">
+          <li><div class="obj-icon">🏆</div>Excellence in Agriculture, Hydraulics, Hydrology, GIS &amp; Remote Sensing, and Climate Change</li>
+          <li><div class="obj-icon">💡</div>Sustainable, innovative, and customized solutions in the most efficient way possible</li>
+          <li><div class="obj-icon">🤖</div>Integrating Artificial Intelligence to automate Civil &amp; Environmental problem-solving</li>
+          <li><div class="obj-icon">🔬</div>Innovating new techniques for value addition in existing engineering practices</li>
+          <li><div class="obj-icon">🏗️</div>Expert solutions in Geotechnical, Transportation, Environment &amp; Structural sectors</li>
+        </ul>
+        <div style="margin-top:32px;display:flex;gap:14px;flex-wrap:wrap">
+          <a href="#services" class="btn btn-green">Our Services</a>
+          <a href="#contact"  class="btn btn-ghost">Get in Touch</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-band">
+  <div class="container">
+    <div class="stats-inner">
+      <div class="stat-block"><div class="big">5+</div><div class="lbl">Core Service Domains</div></div>
+      <div class="stat-block"><div class="big">AI</div><div class="lbl">Powered Analytics</div></div>
+      <div class="stat-block"><div class="big">GIS</div><div class="lbl">Remote Sensing Expertise</div></div>
+      <div class="stat-block"><div class="big">360°</div><div class="lbl">End-to-End Delivery</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section section--alt" id="services">
+  <div class="container">
+    <div style="max-width:560px" class="reveal">
+      <div class="eyebrow">What We Do</div>
+      <h2 class="section-title">Our Core Services</h2>
+      <p class="section-sub">End-to-end consulting across five specialized domains — from aerial surveys to advanced numerical modeling.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card reveal">
+        <div class="svc-icon-wrap ig">🗺️</div>
+        <div class="svc-title">Project Mapping</div>
+        <p class="svc-desc">UAV-based aerial surveys, topographical investigations, EIA studies, land acquisition demarcation, construction progress monitoring, and asset &amp; inventory mapping at centimeter-level accuracy.</p>
+        <div class="svc-tags"><span class="tag-pill">Drone Survey</span><span class="tag-pill">EIA</span><span class="tag-pill">Topo Survey</span><span class="tag-pill">Cadastral</span></div>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:.08s">
+        <div class="svc-icon-wrap ib">🌊</div>
+        <div class="svc-title">Hydraulic &amp; Hydrologic Modeling</div>
+        <p class="svc-desc">Rainfall-runoff modeling, flood simulation, dam break analysis, reservoir capacity planning, sediment yield prediction, dam safety inspection, and GIS-based flood mapping.</p>
+        <div class="svc-tags"><span class="tag-pill">Flood Modeling</span><span class="tag-pill">Dam Safety</span><span class="tag-pill">LIDAR</span><span class="tag-pill">Watershed</span></div>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:.16s">
+        <div class="svc-icon-wrap ia">💧</div>
+        <div class="svc-title">Irrigation Management</div>
+        <p class="svc-desc">Command area surveys, crop area mapping (GCA, CCA, Net Irrigated), canal efficiency monitoring with machine learning, AI-powered irrigation billing with UPI, and distribution network design.</p>
+        <div class="svc-tags"><span class="tag-pill">UAV Mapping</span><span class="tag-pill">Canal AI</span><span class="tag-pill">UPI Billing</span><span class="tag-pill">Network Design</span></div>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:.04s">
+        <div class="svc-icon-wrap il">🌾</div>
+        <div class="svc-title">Precision Agriculture</div>
+        <p class="svc-desc">AI-driven crop identification, disease detection, yield prediction, soil health monitoring, canal automation, and precision fertigation — transforming farming and empowering government decision-making.</p>
+        <div class="svc-tags"><span class="tag-pill">Crop AI</span><span class="tag-pill">Yield Prediction</span><span class="tag-pill">IoT</span><span class="tag-pill">Mobile Apps</span></div>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:.12s">
+        <div class="svc-icon-wrap ip">⚙️</div>
+        <div class="svc-title">Numerical Simulation</div>
+        <p class="svc-desc">Advanced CFD for river system modeling, water quality, spillway flow simulations, sediment transport, groundwater flow, dam break analysis, and transient simulations for complex hydraulic structures.</p>
+        <div class="svc-tags"><span class="tag-pill">CFD</span><span class="tag-pill">Dam Break</span><span class="tag-pill">Sediment</span><span class="tag-pill">Groundwater</span></div>
+      </div>
+      <div class="svc-card svc-cta reveal" style="transition-delay:.2s">
+        <h3>Ready to Start<br>Your Project?</h3>
+        <p>Tell us about your challenge and we'll design a precise, scalable solution for you.</p>
+        <a href="#contact" class="btn btn-amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Request a Quote
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTOR -->
+<section class="section" id="sector">
+  <div class="container">
+    <div class="sector-grid">
+      <div class="reveal">
+        <div class="eyebrow">Sector Focus</div>
+        <h2 class="section-title">Water Resource &amp; Agriculture Sector</h2>
+        <p style="font-size:15px;color:var(--text-lt);line-height:1.8;margin-bottom:12px">NERAM is dedicated to solving Water Resources and Agricultural challenges, delivering scalable solutions through modern GIS, Remote Sensing, and Artificial Intelligence technologies.</p>
+        <p style="font-size:15px;color:var(--text-lt);line-height:1.8">Crop Identification, Yield Prediction, Disease Detection, Weather Forecasting, Canal Regulation, and automated UPI billing ease agricultural management for farmers and government authorities alike.</p>
+        <div class="feat-grid">
+          <div class="feat-card"><div class="icon">🛰️</div><h4>Remote Sensing</h4><p>Multispectral &amp; satellite imagery for land &amp; crop mapping</p></div>
+          <div class="feat-card"><div class="icon">🤖</div><h4>AI &amp; Machine Learning</h4><p>Automate crop identification, disease detection &amp; canal monitoring</p></div>
+          <div class="feat-card"><div class="icon">📱</div><h4>IoT &amp; Mobile Apps</h4><p>Android &amp; IoT platforms for real-time field data and billing</p></div>
+          <div class="feat-card"><div class="icon">🌧️</div><h4>Hydrology &amp; Flood</h4><p>Watershed management, stormwater design &amp; flood preparedness</p></div>
+        </div>
+      </div>
+      <div class="sector-vis reveal" style="transition-delay:.2s">
+        <h3>Capability Overview</h3>
+        <div class="ts-row"><div class="ts-label">Hydraulic Modeling</div><div class="ts-bg"><div class="ts-fill" style="width:95%;--d:.2s"></div></div><div class="ts-pct">95%</div></div>
+        <div class="ts-row"><div class="ts-label">GIS &amp; Remote Sensing</div><div class="ts-bg"><div class="ts-fill" style="width:92%;--d:.35s"></div></div><div class="ts-pct">92%</div></div>
+        <div class="ts-row"><div class="ts-label">Precision Agriculture</div><div class="ts-bg"><div class="ts-fill" style="width:88%;--d:.5s"></div></div><div class="ts-pct">88%</div></div>
+        <div class="ts-row"><div class="ts-label">Irrigation Management</div><div class="ts-bg"><div class="ts-fill" style="width:90%;--d:.65s"></div></div><div class="ts-pct">90%</div></div>
+        <div class="ts-row"><div class="ts-label">CFD Simulation</div><div class="ts-bg"><div class="ts-fill" style="width:85%;--d:.8s"></div></div><div class="ts-pct">85%</div></div>
+        <div class="chip-cloud">
+          <span class="pa-chip">Crop Identification</span><span class="pa-chip">Disease Detection</span>
+          <span class="pa-chip">Yield Prediction</span><span class="pa-chip">Soil Health</span>
+          <span class="pa-chip">Canal Automation</span><span class="pa-chip">Weather Forecasting</span>
+          <span class="pa-chip">Precision Fertigation</span><span class="pa-chip">UPI Billing</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CFD -->
+<section class="cfd-section">
+  <div class="container">
+    <div class="cfd-inner">
+      <div class="cfd-content reveal">
+        <div class="eyebrow" style="color:var(--sprout)">Advanced Engineering</div>
+        <h2 class="section-title">CFD &amp; Numerical Simulation</h2>
+        <p>Computational Fluid Dynamics applied to water resources engineering — delivering precise morphological and hydrological insights for complex infrastructure challenges across India.</p>
+        <a href="#contact" class="btn btn-ghost-w">Discuss Your Project</a>
+      </div>
+      <ul class="cfd-list reveal" style="transition-delay:.2s">
+        <li>River system modelling &amp; flood propagation</li>
+        <li>Water quality modelling</li>
+        <li>Spillway &amp; stilling basin flows</li>
+        <li>Sediment transport &amp; deposition</li>
+        <li>Bridge pier hydraulics</li>
+        <li>Groundwater flow simulations</li>
+        <li>Multiphase sediment transport</li>
+        <li>Dam break &amp; transient analysis</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="container">
+    <div style="max-width:560px;margin-bottom:56px" class="reveal">
+      <div class="eyebrow">Get In Touch</div>
+      <h2 class="section-title">Let's Solve Your Next Project</h2>
+      <p class="section-sub">Reach out to discuss your water resource, agriculture, or infrastructure challenge. We're ready to help.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="cd"><div class="cd-icon">📍</div><div><div class="cd-label">Office Address</div><div class="cd-val">Flat no 404, Sai Datta Housing Society<br>Near Rajveer Galaxy, Dighi<br>Pune – 411015, Maharashtra</div></div></div>
+        <div class="cd"><div class="cd-icon">📞</div><div><div class="cd-label">Phone</div><div class="cd-val"><a href="tel:+918511127778">+91 – 8511127778</a></div></div></div>
+        <div class="cd"><div class="cd-icon">✉️</div><div><div class="cd-label">Email</div><div class="cd-val"><a href="mailto:contact@neramces.com">contact@neramces.com</a><br><a href="mailto:neramces@gmail.com">neramces@gmail.com</a></div></div></div>
+        <div class="cd"><div class="cd-icon">🌐</div><div><div class="cd-label">Website</div><div class="cd-val"><a href="http://www.neramces.com" target="_blank" rel="noopener">www.neramces.com</a></div></div></div>
+        <div style="margin-top:32px;background:var(--sand);border-radius:var(--radius-lg);padding:24px">
+          <p style="font-size:14px;color:var(--text-mid);line-height:1.75">📌 <strong style="color:var(--forest)">Serving clients across India</strong> — government irrigation departments, municipal bodies, private engineering firms and farming communities.</p>
+        </div>
+      </div>
+      <div class="contact-form-box reveal" style="transition-delay:.15s">
+        <div class="form-title">Send Us a Message</div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">First Name</label><input type="text" class="form-input" placeholder="Ramesh"></div>
+          <div class="form-group"><label class="form-label">Last Name</label><input type="text" class="form-input" placeholder="Patil"></div>
+        </div>
+        <div class="form-group"><label class="form-label">Email Address</label><input type="email" class="form-input" placeholder="ramesh@example.com"></div>
+        <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" class="form-input" placeholder="+91 98765 43210"></div>
+        <div class="form-group">
+          <label class="form-label">Service Required</label>
+          <select class="form-select">
+            <option value="" disabled selected>Select a service…</option>
+            <option>Project Mapping</option>
+            <option>Hydraulic &amp; Hydrologic Modeling</option>
+            <option>Irrigation Management</option>
+            <option>Precision Agriculture</option>
+            <option>Numerical Simulation (CFD)</option>
+            <option>General Inquiry</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Project Details</label><textarea class="form-textarea" placeholder="Describe your project requirements, location, timeline…"></textarea></div>
+        <button class="btn btn-green" style="width:100%;justify-content:center;border-radius:var(--radius);font-size:14px;padding:16px" onclick="handleSubmit(event)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Send Message
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="logo">
+          <img src="C:\Users\Praveen\Desktop\NERAM\FINAL LOGO25 JULY2021.png" alt="NERAM logo" class="logo-img" />
+          <div class="logo-text"><span class="logo-name">NERAM</span><span class="logo-tag">Civil Environmental Solution</span></div>
+        </a>
+        <p>Water Resource &amp; Agriculture Solutions — delivering precision engineering through innovation, AI, and advanced geospatial technologies from Nashik, Maharashtra.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#services">Project Mapping</a></li>
+          <li><a href="#services">Hydraulic Modeling</a></li>
+          <li><a href="#services">Irrigation Mgmt.</a></li>
+          <li><a href="#services">Precision Agriculture</a></li>
+          <li><a href="#services">Numerical Simulation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#sector">Sector Overview</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="tel:+918511127778">+91 8511127778</a></li>
+          <li><a href="mailto:contact@neramces.com">contact@neramces.com</a></li>
+          <li><a href="http://www.neramces.com" target="_blank" rel="noopener">neramces.com</a></li>
+          <li><a>Nashik, Maharashtra</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 NERAM Civil Environmental Solution Pvt. Ltd. All rights reserved.</span>
+      <span class="footer-copy">Nashik · Maharashtra · India</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+function closeMobile(){ mobileMenu.classList.remove('open'); }
+
+const secs = document.querySelectorAll('section[id]');
+const navAs = document.querySelectorAll('.nav-links a');
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+  let cur = '';
+  secs.forEach(s => { if (window.scrollY >= s.offsetTop - 90) cur = s.id; });
+  navAs.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+});
+
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('up'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+function handleSubmit(e){
+  const btn = e.currentTarget;
+  btn.innerHTML = '✓ Message Sent! We\'ll be in touch soon.';
+  btn.style.background = 'var(--leaf)';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Message';
+    btn.style.background = '';
+    btn.disabled = false;
+  }, 4000);
+}
+</script>
+</body>
+</html>
